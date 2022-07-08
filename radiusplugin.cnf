@@ -1,0 +1,117 @@
+# The NAS identifier which is sent to the RADIUS server
+NAS-Identifier=OpenVpn
+
+# The service type which is sent to the RADIUS server
+Service-Type=5
+
+# The framed protocol which is sent to the RADIUS server
+Framed-Protocol=1
+
+# The NAS port type which is sent to the RADIUS server
+NAS-Port-Type=5
+
+# The NAS IP address which is sent to the RADIUS server
+NAS-IP-Address=127.0.0.1
+
+# Path to the OpenVPN configfile. The plugin searches there for
+# client-config-dir PATH   (searches for the path)
+# status FILE     		   (searches for the file, version must be 1)
+# client-cert-not-required (if the option is used or not)
+# username-as-common-name  (if the option is used or not)
+
+OpenVPNConfig=/etc/openvpn/server.conf
+
+
+# Support for topology option in OpenVPN 2.1
+# If you don't specify anything, option "net30" (default in OpenVPN) is used. 
+# You can only use one of the options at the same time.
+# If you use topology option "subnet", fill in the right netmask, e.g. from OpenVPN option "--server NETWORK NETMASK"  
+subnet=255.255.255.0
+# If you use topology option "p2p", fill in the right network, e.g. from OpenVPN option "--server NETWORK NETMASK"
+# p2p=10.8.0.1
+
+# If using Framed-IPv6-Address, fill in the gateway, e.g. from OpenVPN option "--server-ipv6 ADDRESS"
+# p2p6=fc00::1
+
+
+# Allows the plugin to overwrite the client config in client config file directory,
+# default is true
+overwriteccfiles=true
+
+# Allows the plugin to use auth control files if OpenVPN (>= 2.1 rc8) provides them.
+# The plugin needs write permission to the folder, by default it is the OpenVPN directory (e.g. /etc/openvpm)
+# The OpenVPN option tmp-dir changes the directory.
+# If this option is disabled, OpenVPN would stall while clients are authenticating.
+# default is false
+useauthcontrolfile=true
+
+# Allows the plugin to use client-connect deferred files if OpenVPN provides them.
+# As for OpenVPN 2.3.8 this functionality is not merged upstream and requires patches from Fabian Knittel.
+# The plugin needs write permission to the folder, by default it is the OpenVPN directory (e.g. /etc/openvpn)
+# The OpenVPN option tmp-dir changes the directory.
+# This option would be disable if OpenVPN doesn't support needed functionality.
+# If this option is disabled, OpenVPN would stall while clients are authenticating.
+# default is false
+useclientconnectdeferfile=true
+
+# Only the accouting functionality is used, if no user name to forwarded to the plugin, the common name of certificate is used
+# as user name for radius accounting.
+# default is false
+# accountingonly=false
+
+# If the accounting is non essential, nonfatalaccounting can be set to true. 
+# If set to true all errors during the accounting procedure are ignored, which can be
+# - radius accounting can fail
+# - FramedRouted (if configured) maybe not configured correctly
+# - errors during vendor specific attributes script execution are ignored
+# But if set to true the performance is increased because OpenVPN does not block during the accounting procedure.
+# default is false
+nonfatalaccounting=false
+
+# Default value for Acct-Interim-Interval in seconds.
+# Useful if you use only accounting but want periodical updates.
+# 0 means disabled
+defacctinteriminterval=0
+
+# Path to a script for vendor specific attributes.
+# Leave it out if you don't use an own script.
+# vsascript=/root/workspace/radiusplugin_v2.0.5_beta/vsascript.pl
+
+# Path to the pipe for communication with the vsascript.
+# Leave it out if you don't use an own script.
+# vsanamedpipe=/tmp/vsapipe
+
+# A radius server definition, there could be more than one.
+# The priority of the server depends on the order in this file. The first one has the highest priority.
+server
+{
+	# The UDP port for radius accounting.
+	acctport=1813
+	# The UDP port for radius authentication.
+	authport=1812
+	# The name or ip address of the radius server.
+	name=192.168.0.153
+	# How many times should the plugin send the if there is no response?
+	retry=1
+	# How long should the plugin wait for a response?
+	wait=1
+	# The shared secret.
+	sharedsecret=testpw
+}
+
+#server
+#{
+#	# The UDP port for radius accounting.
+#	acctport=1813
+#	# The UDP port for radius authentication.
+#	authport=1812
+#	# The name or ip address of the radius server.
+#	name=127.0.0.1
+#	# How many times should the plugin send the if there is no response?
+#	retry=1
+#	# How long should the plugin wait for a response?
+#	wait=1
+#	# The shared secret.
+#	sharedsecret=testpw
+#}
+

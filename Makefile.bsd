@@ -1,0 +1,44 @@
+CC=g++
+INCL=-I/usr/local/include
+LDFLAGS=-L/usr/local/lib
+LIBS=-lgcrypt -lgpg-error -lstdc++ -lm -lpthread
+
+CFLAGS=-Wall -shared -fPIC -DPIC
+
+PLUGIN=radiusplugin.so
+
+OBJECTS=\
+  RadiusClass/RadiusAttribute.o \
+  RadiusClass/RadiusPacket.o \
+  RadiusClass/RadiusConfig.o \
+  RadiusClass/RadiusServer.o \
+  RadiusClass/RadiusVendorSpecificAttribute.o \
+  AccountingProcess.o \
+  Exception.o \
+  PluginContext.o \
+  UserAuth.o \
+  AcctScheduler.o \
+  IpcSocket.o \
+  radiusplugin.o \
+  User.o \
+  AuthenticationProcess.o \
+  main.o \
+  UserAcct.o \
+  UserPlugin.o \
+  Config.o
+
+all: $(PLUGIN)
+
+$(PLUGIN): $(OBJECTS)
+	@echo 'BIN: $(PLUGIN)'
+	@$(CC) $(CFLAGS) $(OBJECTS) -o $(PLUGIN) $(LDFLAGS) $(LIBS)
+
+%.o: %.cpp
+	@echo 'OBJ: $@'
+	@$(CC) $(CFLAGS) $(INCL) -o $@ -c $<
+
+test: $(OBJECTS)
+	@$(CC) -Wall $(OBJECTS) -o main $(LDFLAGS) $(LIBS)
+
+clean:
+	-rm $(PLUGIN) *.o */*.o

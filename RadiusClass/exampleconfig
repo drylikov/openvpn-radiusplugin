@@ -1,0 +1,25 @@
+NAS-Identifier=NASServer
+Service-Type=5
+Framed-Protocol=1
+NAS-Port-Type=5
+NAS-IP-Address=127.0.0.1
+server
+{
+	acctport=1813
+	authport=1812
+	name=127.0.0.1
+	retry=1
+	wait=1
+	sharedsecret=testpw
+
+}
+
+server
+{
+	acctport=1813
+	authport=1812
+	name=192.168.2.2
+	retry=1
+	wait=1
+	sharedsecret=xxxx
+}

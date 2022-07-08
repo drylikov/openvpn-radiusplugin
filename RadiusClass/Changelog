@@ -1,0 +1,26 @@
+RadiusClass_v1.1:
+18.04.06:	Replace Openssl hash functions by libgcrypt functions (GPL compatibility)
+07.05.06:	checking of the authenticator field from received packets
+28.07.06:   add file.close() in RadiusConfig.parseConfigFile()
+27.09.06:   make RadiusPacket->shapePacket() machine indepedent
+27.09.06: 	make RadiusAttribute->intFromBuf() machine indepent
+27.09.06:	make RadiusAttribute->setValue(char *) machine indepent
+18.10.06: 	add support for sending/receiving vendor specific attributes with example
+				Class: RadiusVendorSpecificAttribute, Example in main.cpp
+30.10.06:	add definitions for all vendor specific attributes defined in dictionary file of freeradius 1.0.2
+			- see vsa.h 
+			- vsa.h generated with vsahelper.pl script (script also generates file for if statements for determine datatype of an attribute)
+			- vsahelper.pl is in subfolder utilities
+26.11.06:	add gcry_md_close() for md5 hashes
+26.02.07:	Change in RadiusPacket.radiusSend(), so the packet is also sent to the 
+			last RADIUS server in the list
+RadiusClass_v2.0:
+15.04.07:	Support for Vendor specific attributes.
+			Comments now are now allowed in config file.
+			Passwords and sharedsecrets are shown as ****** in the logs.
+			
+RadiusClass_v2.0b:
+21.07.07:	Support for gigawords
+		Improve parsing of config file..
+		Correct parsing of IPADDRESS in RadiusAttribute.cpp in setValue() for data type IPADDRESS
+			

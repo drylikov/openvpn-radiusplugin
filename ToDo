@@ -1,0 +1,21 @@
+TODO (general):
+----------------
+- integrate system dependent code for system call route ...
+- debug - class;
+- create a method which returns a representation of the buffer dependent on the type (enum, ipaddr, string, integer)
+- get the NAS ip address automatically from the system
+	-> help: find the right interface which knows the route to the radius server!
+	-> or create a /32-interface which is routed in the network, so it is always the same
+- improve the parsing of framed routes and netmask
+- set routes over a socket and not over system (route add -net ...)
+- set timeouts for the ipc socket send and receive methods
+- exceptionhandling with try and catch
+- create a routing and ip class with correctness checking
+- read config options from OpenVPN: 
+	- topology option
+	- get to know if no certificates are used
+	- check if preconditions are ok
+- different status file version 
+- OpenBSD compatible
+- send commonname to RADIUS server
+- vsascript call also at authentication
